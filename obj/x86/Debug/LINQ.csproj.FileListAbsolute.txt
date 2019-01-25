@@ -1,0 +1,4 @@
+c:\users\navjyot.gurhale\documents\visual studio 2010\Projects\LINQ\LINQ\bin\Debug\LINQ.exe
+c:\users\navjyot.gurhale\documents\visual studio 2010\Projects\LINQ\LINQ\bin\Debug\LINQ.pdb
+c:\users\navjyot.gurhale\documents\visual studio 2010\Projects\LINQ\LINQ\obj\x86\Debug\LINQ.exe
+c:\users\navjyot.gurhale\documents\visual studio 2010\Projects\LINQ\LINQ\obj\x86\Debug\LINQ.pdb
