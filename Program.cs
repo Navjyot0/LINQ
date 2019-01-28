@@ -124,16 +124,78 @@ namespace LINQ
             //Console.WriteLine();
 
             //6. Join, GroupJoin
-            var JoinResult_Query = from emp in Employee join dept in Department on emp.DepartmentID equals dept.DepartmentID select new { EmpName = emp.FirstName + "" + emp.LastName, DeptName = dept.DepartmentName };
-            foreach (var p in JoinResult_Query)
-                Console.WriteLine(p.EmpName + " (" + p.DeptName + ")");
+            var JoinResult_Query = from emp in Employee join dept in Department on emp.DepartmentID equals dept.DepartmentID select new { EmpName = emp.FirstName + " " + emp.LastName, DeptName = dept.DepartmentName };
+            var JoinResult_Method = Employee.Join(Department, Emp => Emp.DepartmentID, Dept => Dept.DepartmentID, (Emp, Dept) => new { EmpName = Emp.FirstName + " " + Emp.LastName, DeptName = Dept.DepartmentName });
+            var GroupJoin_Query = from dept in Department join Emp in Employee on dept.DepartmentID equals Emp.DepartmentID into EmpGroup select new { EmpName = EmpGroup, DeptName = dept.DepartmentName };
+            //foreach (var p in JoinResult_Method)
+            //    Console.WriteLine(p.EmpName + " (" + p.DeptName + ")");
 
+            //7. Select 
+            var Select_Query = from emp in Employee select emp.FirstName + " " + emp.LastName;
+            var Select_Method = Employee.Select(Emp => Emp.FirstName + " " + Emp.LastName);
+
+            //8. All, Any, Contains
+            var All_Method = Employee.All(Emp => Emp.Age > 25 && Emp.Age < 30);
+            var Any_Method = Employee.Any(Emp => Emp.Age > 25 && Emp.Age < 30);
+            IList<int> intList = new List<int>() { 1, 2, 3, 4, 5 };
+            bool Contains_Method = intList.Contains(5);
+            //Console.WriteLine(Contains_Method);
+
+
+            //9. Aggregate
+            IList<String> strList = new List<String>() { "One", "Two", "Three", "Four", "Five" };
+            var commaSeperatedString = strList.Aggregate((s1, s2) => s1 + ", " + s2);
+            //Console.WriteLine(commaSeperatedString);
+
+            //10. Average
+            IList<int> int_List = new List<int>() { 10, 20, 30 };
+            var avg = int_List.Average();
+            //Console.WriteLine("Average: {0}", avg);
+
+
+            //11. Count
+            var totalElements = int_List.Count();
+            //Console.WriteLine("Total Elements: {0}", totalElements);
+            var evenElements = intList.Count(i => i % 2 == 0);
+            //Console.WriteLine("Even Elements: {0}", evenElements);
+
+            //12. Max
+            var largest = int_List.Max();
+            //Console.WriteLine("Largest Even Element: {0}", largest);
+
+            //13. Sum
+            var total = int_List.Sum();
+            //Console.WriteLine("Sum: {0}", total);
+
+
+            //14. ElementAt, ElementAtOrDefault
+            var ElementAt_Method = Employee.ElementAt(1);
+            var ElementAtOrDefault_Method = Employee.ElementAtOrDefault(1);
+
+            //15. First, FirstOrDefault
+
+            //16. Last, LastOrDefault
+
+            //17. Single, SingleOrDefault
+
+            //18. SequenceEqual (check 2 lists are same or not)
+            IList<string> strList1 = new List<string>() { "One", "Two", "Three", "Four", "Three" };
+            IList<string> strList2 = new List<string>() { "Two", "One", "Three", "Four", "Three" };
+            bool isEqual = strList1.SequenceEqual(strList2); // returns false
+            //Console.WriteLine(isEqual);
+
+            //19. Concat
+            IList<string> collection1 = new List<string>() { "One", "Two", "Three" };
+            IList<string> collection2 = new List<string>() { "Five", "Six" };
+            var collection3 = collection1.Concat(collection2);
+            foreach (string str in collection3)
+                Console.WriteLine(str);
 
             //Display List
-            //DisplayData(JoinResult_Query.ToList()); // Put all above var data to check 
+            //DisplayData(ElementAt_Method.ToList()); // Put all above var data to check 
 
             //Display ArrayList
-            //DisplayArrayListData(GroupBy_Query); // Put all var data above to check
+            //DisplayArrayListData(ElementAt_Method); // Put all var data above to check
             
             Console.ReadKey();
         }
@@ -263,18 +325,36 @@ namespace LINQ
  * Join is like inner join of SQL. It returns a new collection that contains common elements from two collections whosh keys matches.
  * Join operates on two sequences inner sequence and outer sequence and produces a result sequence.
  * Join query syntax:
-   from... in outerSequence
-   join... in innerSequence 
-   on  outerKey equals innerKey
-   select ...
+ * from ... in <outerSequence> join ... in <innerSequence> on <outerKey> equals <innerKey> select ...
  * 
  * 
  * 
  * 7. GroupJoin
+ * Use of the equals operator to match key selector. == is not valid.
+ * 
+ * 
  * 8. Select
+ * 
+ * 
+ * 
  * 9. All, Any
+ * Quantifier operators are Not Supported with C# query syntax.
+ * 
+ * 
  * 10. Contains
+ * All, Any & Contains are quantifier operators in LINQ.
+ * All checks if all the elements in a sequence satisfies the specified condition.
+ * Any check if any of the elements in a sequence satisfies the specified condition
+ * Contains operator checks whether specified element exists in the collection or not.
+ * Use custom class that derives IEqualityOperator with Contains to check for the object in the collection.
+ * All, Any & Contains are not supported in query syntax in C# or VB.Net.
+ * 
+ * 
  * 11. Aggregate
+ * Aggregate operator is Not Supported with query syntax in C# or VB.Net.
+ * 
+ * 
+ * 
  * 12. Average
  * 13. Count
  * 14. Max
