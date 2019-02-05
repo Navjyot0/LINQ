@@ -43,6 +43,8 @@ namespace LINQ
             new Person { PersonID=104, FirstName ="Ankit", LastName = "Rai", Age=30, Location="Pune", Salary=4000, DepartmentID=1 }
         };
 
+        public static List<Person> Customer = new List<Person>();
+
         public static void DisplayData(List<Person> Employee)
         {
             foreach (Person p1 in Employee)
@@ -54,6 +56,16 @@ namespace LINQ
                 Console.WriteLine("Salary : " + p1.Salary);
                 Console.WriteLine();
             }
+        }
+
+        public static void DisplayData(Person p1)
+        {
+            Console.WriteLine("ID : " + p1.PersonID);
+            Console.WriteLine("Name : " + p1.FirstName + " " + p1.LastName);
+            Console.WriteLine("Age : " + p1.Age);
+            Console.WriteLine("Location : " + p1.Location);
+            Console.WriteLine("Salary : " + p1.Salary);
+            Console.WriteLine();
         }
 
         public static void DisplayArrayListData(IEnumerable data)
@@ -173,10 +185,16 @@ namespace LINQ
             var ElementAtOrDefault_Method = Employee.ElementAtOrDefault(1);
 
             //15. First, FirstOrDefault
+            var ElementAt_First = Employee.First();
+            var ElementAtOrDefault_First = Employee.FirstOrDefault();
 
             //16. Last, LastOrDefault
+            var ElementAt_Last = Employee.Last();
+            var ElementAtOrDefault_Last = Employee.LastOrDefault();
 
             //17. Single, SingleOrDefault
+            var ElememtAt_Single = Employee.Single(p => p.PersonID == 101);
+            var ElementAt_SingleOrDefault = Employee.Single(p => p.PersonID == 101);
 
             //18. SequenceEqual (check 2 lists are same or not)
             IList<string> strList1 = new List<string>() { "One", "Two", "Three", "Four", "Three" };
@@ -188,14 +206,44 @@ namespace LINQ
             IList<string> collection1 = new List<string>() { "One", "Two", "Three" };
             IList<string> collection2 = new List<string>() { "Five", "Six" };
             var collection3 = collection1.Concat(collection2);
-            foreach (string str in collection3)
-                Console.WriteLine(str);
+            //foreach (string str in collection3)
+            //    Console.WriteLine(str);
+
+            //20. DefaultIfEmpty
+            var Employee_DefaultIfEmpty = Employee.DefaultIfEmpty();
+            var Customer_DefaultIfEmpty = Customer.DefaultIfEmpty(new Person() { PersonID = 000, FirstName = "Anonymous", LastName = "Anonymous", Age = 24, Salary = 0, DepartmentID = 1, Location = "Pune" });
+
+            //21. Empty, Range, Repeat
+
+            //22. Distinct
+
+            //23. Except
+
+            //24. Except
+
+            //25. Intersect
+
+            //26. Union
+
+            //27. Skip, SkipWhile
+
+            //28. Take, TakeWhile
+
+            //29. Conversion Operators
+            //1. AsEnumerable
+            //2. AsQueryable
+            //3. Cast
+            //4. OfType
+            //5. ToArray
+            //6. ToDictionary
+            //7. ToList
+            //8. ToLookUp
 
             //Display List
-            //DisplayData(ElementAt_Method.ToList()); // Put all above var data to check 
+            DisplayData(Customer_DefaultIfEmpty.ToList()); // Put all above var data to check 
 
             //Display ArrayList
-            //DisplayArrayListData(ElementAt_Method); // Put all var data above to check
+            //DisplayArrayListData(ElementAtOrDefault_Method); // Put all var data above to check
             
             Console.ReadKey();
         }
